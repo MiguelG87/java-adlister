@@ -4,28 +4,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Random;
 
 @WebServlet(name = "GuessServlet", urlPatterns = "/guess")
 public class GuessServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/guess.jsp").forward(req, resp);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int guess = Integer.parseInt(request.getParameter("guess"));
+        int randomNumber = (int) (Math.random() * 3) + 1;
+        if (guess == randomNumber) {
+            response.sendRedirect("correct");
+        } else {
+            response.sendRedirect("incorrect");
+        }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Random random = new Random();
-        int randomNum = random.nextInt(3) + 1;
-        System.out.println("Random Number: " + randomNum);
-        System.out.println("User Number: " + Integer.parseInt(req.getParameter("userNum")));
-
-
-        if (randomNum == Integer.parseInt(req.getParameter("userNum"))){
-            resp.sendRedirect("/correct");
-        } else {
-            resp.sendRedirect("/incorrect");
-        }
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("guess.jsp").forward(request, response);
     }
 }
