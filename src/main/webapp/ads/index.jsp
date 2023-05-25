@@ -5,28 +5,21 @@
   Time: 2:49 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.util.List" %>
-<%@ page import=".Ad" %>
-<%@ page import="your.package.name.ListAdsDao" %>
-
-<%
-    List<Ad> ads = ListAdsDao.all();
-%>
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Ads Index</title>
+    <title>Ads</title>
 </head>
 <body>
-<h1>All Ads</h1>
-<ul>
-    <% for (Ad ad : ads) { %>
-    <li>
-        <h3><%= ad.getTitle() %></h3>
-        <p><%= ad.getDescription() %></p>
-    </li>
-    <% } %>
-</ul>
+    <h1>Ads</h1>
+    <c:forEach items="${allAds}" var="ad">
+     <h1>${ad.id}</h1>
+     <h2>${ad.title}</h2>
+     <p>${ad.description}</p>
+    </c:forEach>
 </body>
 </html>
+
+
+
