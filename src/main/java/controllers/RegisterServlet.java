@@ -1,7 +1,8 @@
-package com.codeup.adlister.controllers;
+package controllers;
 
-import com.codeup.adlister.dao.DaoFactory;
-import com.codeup.adlister.models.User;
+import dao.DaoFactory;
+import models.User;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +22,8 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("confirm_password");
+
+        String hashWord = BCrypt.hashpw(password, BCrypt.gensalt());
 
         // validate input
         boolean inputHasErrors = username.isEmpty()
